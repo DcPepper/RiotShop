@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Outlet, Link, useLoaderData } from "react-router-dom";
 
 export async function loader(){
@@ -7,8 +8,30 @@ export async function loader(){
 
 
 export default function Root() {
+    const [images, setImages] = useState([]);
     const { items } = useLoaderData();
-    console.log(items.length)
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const imagesData = await Promise.all(
+                    items.map(async (item) => {
+                        return await import(`../../../images/${item.pk}.png`).then(image => image.default)
+                    })
+                )
+                console.log(imagesData)
+                setImages(imagesData)
+            } catch (err){
+                console.error(err)
+            }
+        }
+
+        fetchImages();
+        
+    }, [items])
+    
+        
+
     return (
       <>
         <div id="sidebar">
@@ -17,7 +40,7 @@ export default function Root() {
               {items.length ? (
                 <ul>
                 {items.map((item, i) => {
-                        return <li key={`item-${i}`}><Link to={`items/${item.pk}`}>{item.name}</Link></li>
+                        return <li key={`item-${i}`}><Link to={`items/${item.pk}`}><img src={images[i]} alt={item.name}/></Link></li>
                 })}
                 </ul> 
                 
