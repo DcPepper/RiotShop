@@ -5,7 +5,7 @@ class ItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
-        fields = ('name', 'description_short', 'description', 'gold', 'tags')
+        fields = ('name', 'description_short', 'description', 'gold', 'tags', 'pk')
 
 class RelationSerializer(serializers.ModelSerializer):
     class Meta:
