@@ -1,8 +1,9 @@
 import { useParams, useLoaderData } from 'react-router';
 import { useEffect, useState } from 'react';
+import Description from './Description';
 
 const parseDescription = () => {
-    
+
 }
 
 export default function Item() {
@@ -16,35 +17,37 @@ export default function Item() {
                 const response = await fetch(`http://localhost:8000/api/items/${id}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch item data');
-                  }
+                }
                 const data = await response.json();
                 setItem(data);
-            } catch (err){
+            } catch (err) {
                 console.error(err)
             }
-            
+
         };
         fetchData();
     }, [id])
 
     useEffect(() => {
-        {item ? import(`../../../images/${item.pk}.png`).then(image => {
-                setImage(image.default)
-        }): setImage(null)}
+
+        item ? import(`../../../images/${item.pk}.png`).then(image => {
+            setImage(image.default)
+        }) : setImage(null)
+
     }, [item])
-    
+
     return (
         <>
-        { item ?
-        <div id="item">
-            "id": {id},<br/>
-            "name": {item.name},<br/>
-            "description_short": {item.description_short},<br/>
-            "description": {item.description},<br/>
-            "gold": {item.gold},<br/>
-            "tags": {item.tags}<br/>
-            {image ? <div className='image'><img src={image} alt={item.name}/></div>: ""}
-        </div> : <p>loading</p>}
+            {item ?
+                <div id="item">
+                    "id": {id},<br />
+                    "name": {item.name},<br />
+                    "description_short": {item.description_short},<br />
+                    "description": <Description description={item.description} />,<br />
+                    "gold": {item.gold},<br />
+                    "tags": {item.tags}<br />
+                    {image ? <div className='image'><img src={image} alt={item.name} /></div> : ""}
+                </div> : <p>loading</p>}
         </>
     )
 }
