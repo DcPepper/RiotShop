@@ -1,0 +1,13 @@
+# Backend
+myvenv/
+riot_backend/backend/__pycache__/
+riot_backend/riot_backend/__pycache__/
+
+# Frontend
+
+riotshop/node_modules
+
+# Autres
+notes.md
+
+
