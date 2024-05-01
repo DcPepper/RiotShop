@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 export default function Item() {
     const { itemId: id } = useParams();
     const [item, setItem] = useState(null);
+    const [image, setImage] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,17 +22,24 @@ export default function Item() {
         };
         fetchData();
     }, [id])
+
+    useEffect(() => {
+        {item ? import(`../../../images/${item.pk}.png`).then(image => {
+                setImage(image.default)
+        }): setImage(null)}
+    }, [item])
     
     return (
         <>
         { item ?
         <div id="item">
-            "id": {id},
-            "name": {item.name},
-            "description_short": {item.description_short},
-            "description": {item.description},
-            "gold": {item.gold},
-            "tags": {item.tags}
+            "id": {id},<br/>
+            "name": {item.name},<br/>
+            "description_short": {item.description_short},<br/>
+            "description": {item.description},<br/>
+            "gold": {item.gold},<br/>
+            "tags": {item.tags}<br/>
+            {image ? <img src={image} alt={item.name}/>: ""}
         </div> : <p>loading</p>}
         </>
     )
