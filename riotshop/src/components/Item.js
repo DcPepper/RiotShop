@@ -1,6 +1,10 @@
 import { useParams, useLoaderData } from 'react-router';
 import { useEffect, useState } from 'react';
 
+const parseDescription = () => {
+    
+}
+
 export default function Item() {
     const { itemId: id } = useParams();
     const [item, setItem] = useState(null);
@@ -39,7 +43,7 @@ export default function Item() {
             "description": {item.description},<br/>
             "gold": {item.gold},<br/>
             "tags": {item.tags}<br/>
-            {image ? <img src={image} alt={item.name}/>: ""}
+            {image ? <div className='image'><img src={image} alt={item.name}/></div>: ""}
         </div> : <p>loading</p>}
         </>
     )
