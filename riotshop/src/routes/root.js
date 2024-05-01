@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet, Link, useLoaderData } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
 
 export async function loader(){
     const items = await fetch('http://localhost:8000/api/items').then(rep => rep.json())
@@ -10,6 +11,7 @@ export async function loader(){
 export default function Root() {
     const [images, setImages] = useState([]);
     const { items } = useLoaderData();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -27,26 +29,32 @@ export default function Root() {
         }
 
         fetchImages();
-        
     }, [items])
     
+    useEffect(() => {
+        if (images.length) setLoading(false)
+    }, [images])
         
 
     return (
       <>
+       {loading ? (
         <div id="sidebar">
-          <h1>React Router Contacts</h1>
+            <CircularProgress />
+        </div>
+    ) : <div id="sidebar">
+          <h1>League of Legends shop</h1>
           <nav>
               {items.length ? (
                 <ul>
                 {items.map((item, i) => {
-                        return <li key={`item-${i}`}><Link to={`items/${item.pk}`}><img src={images[i]} alt={item.name}/></Link></li>
+                        return <li title={item.name} key={`item-${i}`}><Link to={`items/${item.pk}`}><img src={images[i]} alt={item.name}/></Link>{item.gold}</li>
                 })}
                 </ul> 
                 
               ): <p>No items</p>}
           </nav>
-        </div>
+        </div>}
         <div id="detail">
             <Outlet />
         </div>

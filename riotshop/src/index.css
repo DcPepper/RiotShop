@@ -13,11 +13,11 @@ code {
 }
 
 #sidebar {
-  width: 50%;
+  width: 60%;
 }
 
 #detail {
-  width: 50%;
+  width: 40%;
 }
 
 #root {
@@ -31,4 +31,17 @@ ul {
   flex-wrap: wrap;
   gap: 10px;
   list-style-type: none;
+  text-decoration: none;
+  
+}
+
+li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+}
+
+mainText {
+  color: red;
 }
