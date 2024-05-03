@@ -42,15 +42,15 @@ code {
   border: 1px solid black;
 }
 
-mainText {
+.mainText {
   border: 1px solid black;
 }
 
-stats {
+.stats {
   border: 1px solid blue;
 }
 
-attention {
+.attention {
   font-weight: bold;
 }
 
@@ -62,4 +62,16 @@ attention {
 
 .ulStats {
   list-style-type: square;
+}
+
+h3+br {
+  content: "";
+  margin: 1px;
+  display: block;
+  font-size: 1%;
+}
+
+h3 {
+  margin-top: 10px;
+  margin-bottom: 0;
 }

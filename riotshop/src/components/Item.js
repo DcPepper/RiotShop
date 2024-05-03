@@ -40,12 +40,8 @@ export default function Item() {
         <>
             {item ?
                 <div id="item">
-                    "id": {id},<br />
-                    "name": {item.name},<br />
-                    "description_short": {item.description_short},<br />
-                    "description": <Description description={item.description} />,<br />
-                    "gold": {item.gold},<br />
-                    "tags": {item.tags}<br />
+                    <h1>{item.name} ({item.gold})</h1>
+                    <Description description={item.description} />
                     {image ? <div className='image'><img src={image} alt={item.name} /></div> : ""}
                 </div> : <p>loading</p>}
         </>
