@@ -75,3 +75,8 @@ h3 {
   margin-top: 10px;
   margin-bottom: 0;
 }
+
+.active {
+  margin-right: 1%;
+  font-weight: bold;
+}

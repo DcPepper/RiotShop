@@ -1,41 +1,14 @@
 const convertDescription = description => {
 
-    description = description.replaceAll('(0s)', '')
-    description = description.replaceAll('<li>', '')
-
-    description = description.replace(/<br><(?!br\s*\/?)([a-zA-Z]+)>/g, function (match, p1) {
+    return description.replace(/<([^/]+?)>(.*?)<\/\1>/g, function (match, p1, p2) {
         if (p1 === "mainText" || p1 === "stats") {
-            return "<div class='" + p1 + "'>";
+            return `<div class="${p1}">${convertDescription(p2)}</div>`;
         } if (p1 === "passive") {
-            return "<h3 class='" + p1 + "'>";
-        } if (p1 === "attention") {
-            return `<br><${p1}>`;
+            return `<h3 class="${p1}">${convertDescription(p2)}</h3>`;
         } else {
-            return "<span class='" + p1 + "'>";
+            return `<span class="${p1}">${convertDescription(p2)}</span>`;
         }
     })
-
-    description = description.replace(/<(?!br\s*\/?)([a-zA-Z]+)>/g, function (match, p1) {
-        if (p1 === "mainText" || p1 === "stats") {
-            return "<div class='" + p1 + "'>";
-        } if (p1 === "passive") {
-            return "<span class='" + p1 + "'>";
-        } else {
-            return "<span class='" + p1 + "'>";
-        }
-    })
-
-    description = description.replace('<br><br>', '')
-
-    return description.replace(/<\/([^>]+)>/g, function (match, p1) {
-        if (p1 === "mainText" || p1 === "stats") {
-            return "</div>";
-        } else if (p1 === "passive") {
-            return "</h3>";
-        } else {
-            return "</span>";
-        }
-    });
 }
 
 export default function Description({ description }) {
