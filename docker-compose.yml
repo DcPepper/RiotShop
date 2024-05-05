@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  backend:
+    image: dcp3pper/backend:1
+    ports:
+      - "8000:8000"
+    volumes:
+      - vback:/app/:z
+  frontend:
+    image: dcp3pper/frontend:1
+    ports:
+      - "3000:3000"
+    volumes:
+      - vfront:/app/:z
+
+volumes:
+  vback:
+    driver: local # Define the driver and options under the volume name
+    driver_opts:
+      type: none
+      device: riot_backend/
+      o: bind
+  vfront:
+    driver: local # Define the driver and options under the volume name
+    driver_opts:
+      type: none
+      device: riotshop/
+      o: bind

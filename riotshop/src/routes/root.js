@@ -18,7 +18,7 @@ export default function Root() {
             try {
                 const imagesData = await Promise.all(
                     items.map(async (item) => {
-                        return await import(`../../../images/${item.pk}.png`).then(image => image.default)
+                        return await import(`/app/images/${item.pk}.png`).then(image => image.default)
                     })
                 )
                 setImages(imagesData)

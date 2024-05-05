@@ -30,7 +30,7 @@ export default function Item() {
 
     useEffect(() => {
 
-        item ? import(`../../../images/${item.pk}.png`).then(image => {
+        item ? import(`/app/images/${item.pk}.png`).then(image => {
             setImage(image.default)
         }) : setImage(null)
 
