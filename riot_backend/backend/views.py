@@ -6,6 +6,8 @@ from django.shortcuts import get_object_or_404
 from .models import Item, Relation
 from .serializers import ItemSerializer, RelationSerializer
 
+from django.db.models import Q
+
 @api_view(['GET'])
 def items_list(request):
     items = Item.objects.all()
@@ -23,7 +25,12 @@ def items_list(request):
 
 @api_view(['GET'])
 def relation_list(request):
-    relations = Relation.objects.all()
+    item_id = request.GET.get('item')
+    query = Q()
+    if item_id:
+        item = Item.objects.get(id=item_id)
+        query = Q(from_field=item) | Q(into_field=item)
+    relations = Relation.objects.filter(query)
     serializer = RelationSerializer(relations, context={'request':request}, many=True)
     return Response(serializer.data)
 

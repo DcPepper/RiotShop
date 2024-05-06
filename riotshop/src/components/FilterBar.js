@@ -52,7 +52,7 @@ export default function FilterBar({handleTag}) {
 
     return (
         <FormGroup row>
-            <ul>
+            <ul className='ulFilter'>
             {Object.keys(Tags).map((tag, idx) => {
                 return <li><FormControlLabel key={`tag-${tag}-${idx}`} control={<Checkbox />} label={tag} onChange={handleChange} /></li>
             })}

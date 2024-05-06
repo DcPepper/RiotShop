@@ -1,6 +1,7 @@
 import { useParams, useLoaderData } from 'react-router';
 import { useEffect, useState } from 'react';
 import Description from './Description';
+import TransformInto from './TransformInto';
 
 const parseDescription = () => {
 
@@ -40,6 +41,7 @@ export default function Item() {
         <>
             {item ?
                 <div id="item">
+                    <TransformInto id={id} />
                     <h1>{item.name} ({item.gold})</h1>
                     <Description description={item.description} />
                     {image ? <div className='image'><img src={image} alt={item.name} /></div> : ""}

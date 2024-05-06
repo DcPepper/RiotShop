@@ -6,6 +6,7 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = ('name', 'description_short', 'description', 'gold', 'tags', 'pk', 'depth')
+    
 
 class RelationSerializer(serializers.ModelSerializer):
     class Meta:

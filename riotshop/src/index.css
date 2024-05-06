@@ -51,6 +51,16 @@ ul {
   border: 1px solid black;
 }
 
+.transformInto {
+  display: flex;
+  gap: 10px;
+  list-style-type: none;
+  text-decoration: none;
+  padding: 0px;
+  margin: 0px;
+  overflow-x: scroll;
+}
+
 .mainText {
   border: 1px solid black;
 }

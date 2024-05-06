@@ -66,6 +66,12 @@ class Item(models.Model):
 
     def get_tags(self):
         return self.tags.split(';')
+
+    def item_from(self):
+        return self.relation_from.all()
+    
+    def item_into(self):
+        return self.relation_into.all()
 # Create your models here.
 
 class Relation(models.Model):
