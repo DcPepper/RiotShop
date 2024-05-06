@@ -13,7 +13,8 @@ def items_list(request):
     tag = request.GET.get('tag')    
     if tag:
         tag = tag.split('-')
-        items_filtered = [item.id for item in items if all(t in item.get_tags() for t in tag)]
+        tags = [t.split('_') for t in tag]
+        items_filtered = [item.id for item in items if all((any(t for t in tag_array if t in item.get_tags()) for tag_array in tags))]
         items = Item.objects.filter(id__in=items_filtered)
     if s and len(s):
         items = items.filter(name__icontains=s)

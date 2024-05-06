@@ -17,7 +17,10 @@ import {
 const router = createBrowserRouter([
   {
     path: "",
-    element: <Root />,
+    element: <>
+    <h1 id='title'>League of Legends Shop</h1>
+    <Root />
+    </>,
     loader: rootLoader,
     children: [
       {

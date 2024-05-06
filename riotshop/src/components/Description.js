@@ -12,7 +12,6 @@ const convertDescription = description => {
 }
 
 export default function Description({ description }) {
-    console.log(description)
     description = convertDescription(description)
     return (
         /*

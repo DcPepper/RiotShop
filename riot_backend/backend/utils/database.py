@@ -5,8 +5,12 @@ for key, item in data.items():
        description = item['description']
        gold = item['gold']['base']
        id = key
+       depth = item.get('depth')
        tags = ";".join(item['tags'])
-       curr = Item(id=id, name=name, description_short=short, description=description, gold=gold, tags=tags)
+       if depth:
+          curr = Item(id=id, name=name, description_short=short, description=description, gold=gold, tags=tags, depth=depth)
+       else:
+          curr = Item(id=id, name=name, description_short=short, description=description, gold=gold, tags=tags)
        curr.save()
 
 for item in Item.objects.all():

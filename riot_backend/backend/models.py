@@ -59,6 +59,7 @@ class Item(models.Model):
     description = models.TextField()
     gold = models.IntegerField()
     tags = models.CharField(max_length=200, blank=True, validators=[validate_tags])
+    depth = models.IntegerField(null=True, blank=True)
 
     def __str__(self) -> str:
         return f'{self.id}: {self.name}'

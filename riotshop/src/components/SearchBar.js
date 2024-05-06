@@ -9,8 +9,8 @@ export default function SearchBar({handleSearch}) {
         handleSearch(newText)
     }
     return (
-        <div>
-            <TextField id="outlined-basic" label="Item" variant="outlined" value={text} onChange={handleChange} />
+        <div className='searchBar'>
+            <TextField fullWidth  id="outlined-basic" label="Item" variant="outlined" value={text} onChange={handleChange} />
         </div>
     )
 }

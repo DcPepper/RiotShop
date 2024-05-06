@@ -12,17 +12,26 @@ code {
     monospace;
 }
 
-#sidebar {
-  width: 60%;
+#core {
+  display: flex;
 }
 
 #detail {
   width: 40%;
 }
 
+#sidebar {
+  width: 60%;
+  display: flex;
+}
+
+ul {
+  list-style-type: none;
+}
+
 #root {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
 }
 
@@ -54,6 +63,10 @@ code {
   font-weight: bold;
 }
 
+#title{
+  text-align: center;
+}
+
 .image {
   width: 100%;
   display: flex;
@@ -79,4 +92,8 @@ h3 {
 .active {
   margin-right: 1%;
   font-weight: bold;
+}
+
+.searchBar {
+  width: 100%;
 }

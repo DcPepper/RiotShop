@@ -4,37 +4,34 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { useState } from 'react';
 
 const Tags = {
-    SpellBlock:'SpellBlock',
-    Jungle:'Jungle',
-    Mana:'Mana',
-    ManaRegen:'ManaRegen',
-    LifeSteal:'LifeSteal',
-    OnHit:'OnHit',
+    Damage:'Damage', // OK
+    CriticalStrike:'CriticalStrike', // OK
+    AttackSpeed:'AttackSpeed', // OK
+    OnHit:'OnHit', //OK
+    ArmorPenetration:'ArmorPenetration', // OK
+
+    SpellDamage:'SpellDamage', //OK
+    ManaAndRegen:'Mana_ManaRegen', //OK
+    MagicPenetration:'MagicPenetration', //OK
+
+    HealthAndRegen:'Health_HealthRegen', // OK
+    Armor:'Armor', //OK
+    MagicResist:'MagicResist_SpellBlock', // OK
+
+    CooldownReduction:'CooldownReduction_AbilityHaste', // OK
+    Movement:'Slow_Boots_NonbootsMovement', // OK 
+    LifeStealAndSpellVamp:'LifeSteal_SpellVamp', // OK
+    Jungle:'Jungle',    
     Lane:'Lane',
+    
     Tenacity:'Tenacity',
-    CriticalStrike:'CriticalStrike',
-    Slow:'Slow',
-    Boots:'Boots',
-    NonbootsMovement:'NonbootsMovement',
-    ArmorPenetration:'ArmorPenetration',
+    
     Consumable:'Consumable',
-    SpellDamage:'SpellDamage',
-    MagicResist:'MagicResist',
     Stealth:'Stealth',
     Vision:'Vision',
-    MagicPenetration:'MagicPenetration',
-    Active:'Active',
-    SpellVamp:'SpellVamp',
-    GoldPer:'GoldPer',
-    Health:'Health',
-    Aura:'Aura',
-    Armor:'Armor',
-    AttackSpeed:'AttackSpeed',
-    HealthRegen:'HealthRegen',
+    
     Trinket:'Trinket',
-    Damage:'Damage',
-    AbilityHaste:'AbilityHaste',
-    CooldownReduction:'CooldownReduction',
+
   }
 
 export default function FilterBar({handleTag}) {
@@ -42,12 +39,12 @@ export default function FilterBar({handleTag}) {
 
     const handleChange = (e) => {
         if (e.target.checked){
-            setTags([...tags, e.target.labels[0].textContent])
-            handleTag([...tags, e.target.labels[0].textContent])
+            setTags([...tags, Tags[e.target.labels[0].textContent]])
+            handleTag([...tags, Tags[e.target.labels[0].textContent]])
         } else {
-            if (tags.includes(e.target.labels[0].textContent)) {
-                setTags(tags.filter(tag => tag != e.target.labels[0].textContent))
-                handleTag(tags.filter(tag => tag != e.target.labels[0].textContent))
+            if (tags.includes(Tags[e.target.labels[0].textContent])) {
+                setTags(tags.filter(tag => tag != Tags[e.target.labels[0].textContent]))
+                handleTag(tags.filter(tag => tag != Tags[e.target.labels[0].textContent]))
             }
             
         }
@@ -55,9 +52,11 @@ export default function FilterBar({handleTag}) {
 
     return (
         <FormGroup row>
-            {Object.keys(Tags).map(tag => {
-                return <FormControlLabel key={`tag-${tag}`} control={<Checkbox />} label={Tags[tag]} onChange={handleChange} />
+            <ul>
+            {Object.keys(Tags).map((tag, idx) => {
+                return <li><FormControlLabel key={`tag-${tag}-${idx}`} control={<Checkbox />} label={tag} onChange={handleChange} /></li>
             })}
+            </ul>
         </FormGroup>
     )
 }

@@ -26,7 +26,7 @@ export async function loader(search = "", tag = "") {
 
 
 export default function Root() {
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useState({});
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
@@ -40,7 +40,9 @@ export default function Root() {
                         return await import(`/app/images/${item.pk}.png`).then(image => image.default)
                     })
                 )
-                setImages(imagesData)
+                let dictImages = {}
+                dictImages = imagesData.reduce((imagesVar, image, idx) => (imagesVar[items[idx].pk] = image, imagesVar), {})
+                setImages(dictImages)
             } catch (err) {
                 console.error(err)
             }
@@ -50,7 +52,7 @@ export default function Root() {
     }, [items])
 
     useEffect(() => {
-        if (images.length) setLoading(false)
+        if (Object.keys(images).length) setLoading(false)
     }, [images])
 
     useEffect(() => {
@@ -63,7 +65,6 @@ export default function Root() {
     }, [search, tags])
     
     const handleSearch = (search) => {
-        console.log(search)
         setSearch(search)
     }
 
@@ -74,18 +75,24 @@ export default function Root() {
     return (
         <>
             {loading ? (
-                <div id="sidebar">
+                <div id="core">
                     <CircularProgress />
                 </div>
-            ) : <div id="sidebar">
-                <h1>League of Legends shop</h1>
-                <SearchBar handleSearch={handleSearch}/>
-                <FilterBar handleTag={handleTag} />
-                <Sidebar items={items} images={images} />
-            </div>}
-            <div id="detail">
-                <Outlet />
-            </div>
+            ) : 
+                <div id="core">
+                    <div id="sidebar">
+                        <div>
+                            <SearchBar handleSearch={handleSearch}/>
+                            <FilterBar handleTag={handleTag} />
+                        </div>
+                        <Sidebar items={items} images={images} />
+                    </div>
+                    <div id="detail">
+                        <Outlet />
+                    </div>
+                </div>
+            }
+            
         </>
     );
 }
