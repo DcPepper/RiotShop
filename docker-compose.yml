@@ -2,16 +2,22 @@ version: '3.8'
 services:
   backend:
     image: dcp3pper/backend:1
+    restart: always
     ports:
       - "8000:8000"
     volumes:
       - vback:/app/:z
   frontend:
+    restart: always
     image: dcp3pper/frontend:1
     ports:
       - "3000:3000"
     volumes:
       - vfront:/app/:z
+      - '/app/node_modules/'
+    environment:
+    - WATCHPACK_POLLING=true
+
 
 volumes:
   vback:

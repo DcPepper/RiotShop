@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Outlet, Link, useLoaderData } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
+import Sidebar from "../components/Sidebar";
+import SearchBar from "../components/SearchBar";
 
 export async function loader() {
     const items = await fetch('http://localhost:8000/api/items').then(rep => rep.json())
@@ -43,16 +45,8 @@ export default function Root() {
                 </div>
             ) : <div id="sidebar">
                 <h1>League of Legends shop</h1>
-                <nav>
-                    {items.length ? (
-                        <ul className="sidebarUl">
-                            {items.map((item, i) => {
-                                return <li className="sidebarLi" title={item.name} key={`item-${i}`}><Link to={`items/${item.pk}`}><img src={images[i]} alt={item.name} /></Link>{item.gold}</li>
-                            })}
-                        </ul>
-
-                    ) : <p>No items</p>}
-                </nav>
+                <SearchBar />
+                <Sidebar items={items} images={images} />
             </div>}
             <div id="detail">
                 <Outlet />
