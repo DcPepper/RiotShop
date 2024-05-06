@@ -9,10 +9,14 @@ from .serializers import ItemSerializer, RelationSerializer
 @api_view(['GET'])
 def items_list(request):
     items = Item.objects.all()
-    tag = request.GET.get('tag')
+    s = request.GET.get('s')
+    tag = request.GET.get('tag')    
     if tag:
-        items_filtered = [item.id for item in items if tag in item.get_tags()]
+        tag = tag.split('-')
+        items_filtered = [item.id for item in items if all(t in item.get_tags() for t in tag)]
         items = Item.objects.filter(id__in=items_filtered)
+    if s and len(s):
+        items = items.filter(name__icontains=s)
     serializer = ItemSerializer(items, context={'request':request}, many=True)
     return Response(serializer.data)
 
